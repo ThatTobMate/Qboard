@@ -99,7 +99,7 @@ module.exports = function(app, express){
   });
 
   app.get('/', function(req, res){
-    res.json('Hi');
+    res.json('Hello');
   })
   return api
 
