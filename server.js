@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config');
 var mongoose = require('mongoose');
-
+var cors = require('cors');
 var app = express();
 
 mongoose.connect(config.database, function(err){
@@ -14,9 +14,14 @@ mongoose.connect(config.database, function(err){
   }
 });
 
+app.use(cors());
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+
+
+app.use(express.static(__dirname + '/public'))
 
 var api = require('./app/routes/api')(app, express);
 

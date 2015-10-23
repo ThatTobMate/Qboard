@@ -20,6 +20,7 @@ module.exports = function(app, express){
   var api = express.Router();
 
   api.post('/signup', function(req, res){
+    debugger;
     var user = new User({
       name: req.body.name,
       username: req.body.username,
@@ -98,8 +99,8 @@ module.exports = function(app, express){
     }
   });
 
-  app.get('/', function(req, res){
-    res.json('Hello');
+  api.get('/me', function(req, res){
+    res.json(req.decoded);
   })
   return api
 
