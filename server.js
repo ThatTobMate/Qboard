@@ -21,13 +21,6 @@ var knex = require('knex')({
 
 var bookshelf = require('bookshelf')(knex);
 
-
-// mysql.createConnection({
-//   host     : 'clutch.cuyqr5tvvj16.eu-west-1.rds.amazonaws.com:3306',
-//   user     : 'root',
-//   password : 'maxell245',
-//   port     : '3306'
-// });
 // mongoose.connect(config.database, function(err){
 //   if(err){
 //     console.log(err);
