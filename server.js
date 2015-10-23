@@ -2,17 +2,39 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config');
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
+var mysql = require('mysql');
 var cors = require('cors');
 var app = express();
 
-mongoose.connect(config.database, function(err){
-  if(err){
-    console.log(err);
-  }else{
-    console.log('Connected to the database');
+var knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host     : process.env.RDS_HOSTNAME,
+    user     : process.env.RDS_USERNAME,
+    password : process.env.RDS_PASSWORD,
+    port: '3306',
+    database : 'myapp_test',
+    charset  : 'utf8'
   }
 });
+
+var bookshelf = require('bookshelf')(knex);
+
+
+// mysql.createConnection({
+//   host     : 'clutch.cuyqr5tvvj16.eu-west-1.rds.amazonaws.com:3306',
+//   user     : 'root',
+//   password : 'maxell245',
+//   port     : '3306'
+// });
+// mongoose.connect(config.database, function(err){
+//   if(err){
+//     console.log(err);
+//   }else{
+//     console.log('Connected to the database');
+//   }
+// });
 
 app.use(cors());
 
