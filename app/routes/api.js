@@ -1,13 +1,12 @@
 var User = require('../models/user');
 var config = require('../../config');
 var secretKey = config.secretKey;
-
 var jsonwebtoken = require('jsonwebtoken');
 
 function createToken(user){
   var token = jsonwebtoken.sign({
     _id: user._id,
-    name:user.name,
+    email: user.email,
     username: user.username
   }, secretKey, {
     expiresInMinute: 1440
@@ -20,9 +19,8 @@ module.exports = function(app, express){
   var api = express.Router();
 
   api.post('/signup', function(req, res){
-    debugger;
     var user = new User({
-      name: req.body.name,
+      email: req.body.email,
       username: req.body.username,
       password: req.body.password
     });
