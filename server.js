@@ -21,13 +21,24 @@ var app = express();
 
 // var bookshelf = require('bookshelf')(knex);
 
-mongoose.connect(config.database, function(err){
-  if(err){
-    console.log(err);
-  }else{
-    console.log('Connected to the database');
-  }
+var sequelize = new Sequelize('database', 'username', 'password', {
+  host: 'localhost',
+  dialect: 'mysql',
+
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  },
 });
+
+// mongoose.connect(config.database, function(err){
+//   if(err){
+//     console.log(err);
+//   }else{
+//     console.log('Connected to the database');
+//   }
+// });
 
 app.use(cors());
 
@@ -38,7 +49,7 @@ app.use(morgan('dev'));
 
 app.use(express.static(__dirname + '/public'))
 
-var api = require('./app/routes/api')(app, express);
+var api = require('./server/routes/api')(app, express);
 
 app.use('/api', api);
 
